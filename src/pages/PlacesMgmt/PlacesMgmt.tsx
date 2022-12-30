@@ -9,8 +9,8 @@ import {
 } from "antd";
 import React, { useState } from "react";
 
-const PlacesManagement: React.FC = () => {
+const PlacesMgmt: React.FC = () => {
   return <div>dia diem</div>;
 };
 
-export default PlacesManagement;
+export default PlacesMgmt;

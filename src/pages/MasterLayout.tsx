@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Layout, Menu, theme } from "antd";
 
-import PlacesManagement from "./PlacesManagement";
+import PlacesMgmt from "./PlacesMgmt/PlacesMgmt";
 
 import {
   AppstoreAddOutlined,
@@ -15,7 +15,7 @@ import {
 } from "@ant-design/icons";
 import { Link, Route, Routes } from "react-router-dom";
 import Dashboard from "./Dashboard";
-import PlaceTypes from "./PlaceTypes";
+import PlaceTypes from "./PlaceTypesMgmt/PlaceTypesMgmt";
 
 const { Header, Sider, Content } = Layout;
 
@@ -85,7 +85,7 @@ const MasterLayout: React.FC = () => {
         >
           <Routes>
             <Route path="" element={<Dashboard />} />
-            <Route path="places" element={<PlacesManagement />} />
+            <Route path="places" element={<PlacesMgmt />} />
             <Route path="place-types" element={<PlaceTypes />} />
           </Routes>
         </Content>
