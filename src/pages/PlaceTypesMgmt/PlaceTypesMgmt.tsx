@@ -191,6 +191,7 @@ const PlaceTypesMgmt: React.FC = () => {
           dataSource={data}
           columns={mergedColumns}
           rowClassName="editable-row"
+          size="small"
           pagination={{
             pageSize: 4,
             onChange: cancel,

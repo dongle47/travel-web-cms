@@ -10,8 +10,6 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Link, Route, Routes } from "react-router-dom";
 import Dashboard from "./Dashboard";
