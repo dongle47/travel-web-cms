@@ -4,6 +4,7 @@ import { Layout, Menu, theme } from "antd";
 import PlacesManagement from "./PlacesManagement";
 
 import {
+  AppstoreAddOutlined,
   EnvironmentOutlined,
   HomeOutlined,
   MenuFoldOutlined,
@@ -14,6 +15,7 @@ import {
 } from "@ant-design/icons";
 import { Link, Route, Routes } from "react-router-dom";
 import Dashboard from "./Dashboard";
+import PlaceTypes from "./PlaceTypes";
 
 const { Header, Sider, Content } = Layout;
 
@@ -32,12 +34,18 @@ const MasterLayout: React.FC = () => {
     },
     {
       key: "2",
+      icon: <AppstoreAddOutlined />,
+      label: "Loại địa điểm",
+      link: "/place-types",
+    },
+    {
+      key: "3",
       icon: <EnvironmentOutlined />,
       label: "Địa điểm",
       link: "/places",
     },
     {
-      key: "3",
+      key: "4",
       icon: <UploadOutlined />,
       label: "nav 3",
     },
@@ -78,6 +86,7 @@ const MasterLayout: React.FC = () => {
           <Routes>
             <Route path="" element={<Dashboard />} />
             <Route path="places" element={<PlacesManagement />} />
+            <Route path="place-types" element={<PlaceTypes />} />
           </Routes>
         </Content>
       </Layout>
