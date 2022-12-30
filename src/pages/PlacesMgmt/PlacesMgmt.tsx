@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Button, Space, Table, Tag, Typography } from "antd";
+import React, { useEffect, useState } from "react";
+import { Avatar, Button, Space, Table, Tag, Typography } from "antd";
+import apiPlaces from "../../apis/apiPlaces";
 
 import type { ColumnsType } from "antd/es/table";
-
+import { Link } from "react-router-dom";
 interface DataType {
-  key: string;
   id: string;
-  thumbnail: number;
+  thumbnail: string;
   name: string;
   placeType: string;
-  lat: string;
-  lng: string;
+  lat: number;
+  lng: number;
   address: string;
 }
 
@@ -24,6 +24,9 @@ const columns: ColumnsType<DataType> = [
     title: "Thumbnail",
     dataIndex: "thumbnail",
     width: "10%",
+    render: (_, { thumbnail }) => (
+      <Avatar shape="square" size={70} src={thumbnail} />
+    ),
   },
   {
     title: "Tên địa điểm",
@@ -51,51 +54,58 @@ const columns: ColumnsType<DataType> = [
     width: "20%",
   },
   {
-    title: "Action",
-    key: "action",
-    render: (_) => (
+    title: "Hành động",
+    dataIndex: "action",
+    render: (_, { id }) => (
       <Space size="middle">
-        <Typography.Link style={{ color: "blue" }}>Chỉnh sửa</Typography.Link>
-        <Typography.Link style={{ color: "red" }}>Xoá</Typography.Link>
+        <Link to={id}>
+          <Typography style={{ color: "blue" }}>Chỉnh sửa</Typography>
+        </Link>
+        <Typography style={{ color: "red" }}>Xoá</Typography>
       </Space>
     ),
   },
 ];
 
-const data: DataType[] = [
-  {
-    key: "1",
-    id: "312312",
-    thumbnail: 1,
-    name: "John Brown",
-    placeType: "ádsad",
-    lat: "đấ",
-    lng: "đâs",
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "2",
-    id: "312312",
-    thumbnail: 1,
-    name: "John Brown",
-    placeType: "ádsad",
-    lat: "đấ",
-    lng: "đâs",
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "3",
-    id: "312312",
-    thumbnail: 1,
-    name: "John Brown",
-    placeType: "ádsad",
-    lat: "đấ",
-    lng: "đâs",
-    address: "New York No. 1 Lake Park",
-  },
-];
-
 const PlacesMgmt: React.FC = () => {
+  const [data, setData] = useState([
+    {
+      id: "312312",
+      thumbnail: "dasd",
+      name: "John Brown",
+      placeType: "ádsad",
+      lat: 1,
+      lng: 1,
+      address: "New York No. 1 Lake Park",
+    },
+  ]);
+
+  useEffect(() => {
+    const getData = async () => {
+      var placeType: any[] = [];
+      await apiPlaces.getPlaceTypes().then((res) => (placeType = res.data));
+      await apiPlaces
+        .getPlaces()
+        .then((res) => {
+          const newData = res.data.map((item: any, index: any) => ({
+            id: item.id,
+            thumbnail: item.thumbnail,
+            name: item.name,
+            placeType: placeType.find(
+              (element) => element.id === item.place_type_id
+            ).name,
+            lat: item.lat,
+            lng: item.lng,
+            address: "New York No. 1 Lake Park",
+          }));
+
+          setData(newData);
+        })
+        .catch((e) => console.log(e));
+    };
+    getData();
+  }, []);
+
   return (
     <div>
       <Button

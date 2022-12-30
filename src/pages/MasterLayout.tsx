@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Layout, Menu, theme } from "antd";
 
 import PlacesMgmt from "./PlacesMgmt/PlacesMgmt";
+import UpdatePlace from "./PlacesMgmt/UpdatePlace";
 
 import {
   AppstoreAddOutlined,
@@ -84,6 +85,7 @@ const MasterLayout: React.FC = () => {
           <Routes>
             <Route path="" element={<Dashboard />} />
             <Route path="places" element={<PlacesMgmt />} />
+            <Route path="places/:id" element={<UpdatePlace />} />
             <Route path="place-types" element={<PlaceTypes />} />
           </Routes>
         </Content>
