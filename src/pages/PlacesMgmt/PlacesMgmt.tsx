@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Avatar, Button, Space, Table, Tag, Typography } from "antd";
 import apiPlaces from "../../apis/apiPlaces";
 
+import ModalCreatePlace from "./ModalCreatePlace";
+
 import type { ColumnsType } from "antd/es/table";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 interface DataType {
   id: string;
   thumbnail: string;
@@ -68,6 +71,8 @@ const columns: ColumnsType<DataType> = [
 ];
 
 const PlacesMgmt: React.FC = () => {
+  const [openModal, setOpenModal] = useState(false);
+
   const [data, setData] = useState([
     {
       id: "312312",
@@ -106,12 +111,30 @@ const PlacesMgmt: React.FC = () => {
     getData();
   }, []);
 
+  const onSubmit = (values: any) => {
+    const param = {
+      code: values.code,
+      name: values.name,
+    };
+
+    apiPlaces
+      .postPlaceType(param)
+      .then((res) => {
+        toast.success(res.message);
+      })
+      .catch((e) => {
+        toast.error(e.message);
+      });
+
+    setOpenModal(false);
+  };
+
   return (
     <div>
       <Button
         style={{ marginBottom: 16 }}
         type="primary"
-        // onClick={() => setOpenModal(true)}
+        onClick={() => setOpenModal(true)}
       >
         Tạo địa điểm
       </Button>
@@ -120,6 +143,13 @@ const PlacesMgmt: React.FC = () => {
         dataSource={data}
         pagination={{
           pageSize: 5,
+        }}
+      />
+      <ModalCreatePlace
+        open={openModal}
+        onSubmit={onSubmit}
+        onCancel={() => {
+          setOpenModal(false);
         }}
       />
     </div>

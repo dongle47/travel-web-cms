@@ -1,9 +1,9 @@
-import { Form, Input, Modal } from "antd";
 import React from "react";
 
 import { ModalFormProps } from "../../models/ModalFormProps";
+import { Form, Input, Modal } from "antd";
 
-const ModalCreate: React.FC<ModalFormProps> = ({
+const ModalCreatePlace: React.FC<ModalFormProps> = ({
   open,
   onSubmit,
   onCancel,
@@ -64,4 +64,4 @@ const ModalCreate: React.FC<ModalFormProps> = ({
   );
 };
 
-export default ModalCreate;
+export default ModalCreatePlace;
