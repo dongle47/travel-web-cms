@@ -96,7 +96,7 @@ const PlacesMgmt: React.FC = () => {
             ).name,
             lat: item.lat,
             lng: item.lng,
-            address: "New York No. 1 Lake Park",
+            address: item.address,
           }));
 
           setData(newData);
