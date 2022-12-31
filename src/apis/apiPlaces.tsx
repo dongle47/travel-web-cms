@@ -6,6 +6,11 @@ const apiPlaces = {
     return res.data;
   },
 
+  postPlace: async (param: any) => {
+    const res = await axiosClient.post("/place-service/place/create", param);
+    return res.data;
+  },
+
   getPlaceTypes: async () => {
     const res = await axiosClient.get("/place-service/place-type/list");
     return res.data;

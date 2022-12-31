@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Button, Space, Table, Tag, Typography } from "antd";
+import { Avatar, Button, Space, Table, Typography } from "antd";
 import apiPlaces from "../../apis/apiPlaces";
 
 import ModalCreatePlace from "./ModalCreatePlace";
