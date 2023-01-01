@@ -1,8 +1,8 @@
 import { axiosClient } from "./axiosClient";
 
 const apiUpload = {
-  putUploadAvatar: async (param: any) => {
-    const res = await axiosClient.post("/user/profile/uploadAvatar", param, {
+  postUploadAvatar: async (param: any) => {
+    const res = await axiosClient.post("upload-service/file/upload", param, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

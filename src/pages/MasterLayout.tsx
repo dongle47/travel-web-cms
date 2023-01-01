@@ -15,6 +15,7 @@ import {
 import { Link, Route, Routes } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import PlaceTypes from "./PlaceTypesMgmt/PlaceTypesMgmt";
+import TestUpload from "./PlacesMgmt/TestUpload";
 
 const { Header, Sider, Content } = Layout;
 
@@ -46,7 +47,8 @@ const MasterLayout: React.FC = () => {
     {
       key: "4",
       icon: <UploadOutlined />,
-      label: "nav 3",
+      label: "Test upload",
+      link: "/test-upload",
     },
   ];
 
@@ -87,6 +89,7 @@ const MasterLayout: React.FC = () => {
             <Route path="places" element={<PlacesMgmt />} />
             <Route path="places/:id" element={<UpdatePlace />} />
             <Route path="place-types" element={<PlaceTypes />} />
+            <Route path="test-upload" element={<TestUpload />} />
           </Routes>
         </Content>
       </Layout>

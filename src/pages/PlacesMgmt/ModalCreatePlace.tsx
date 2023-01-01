@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
-
+import apiPlaces from "../../apis/apiPlaces";
+import apiUpload from "../../apis/apiUpload";
 import { ModalFormProps } from "../../models/ModalFormProps";
 import {
   Button,
@@ -15,10 +16,11 @@ import {
   Typography,
 } from "antd";
 import { toast } from "react-toastify";
+import { type } from "os";
 
 const { Title, Text } = Typography;
 
-const provinceData: any = ["Zhejiang", "Jiangsu"];
+// const provinceData: any = ["Zhejiang", "Jiangsu"];
 const cityData = {
   Zhejiang: ["Hangzhou", "Ningbo", "Wenzhou"],
   Jiangsu: ["Nanjing", "Suzhou", "Zhenjiang"],
@@ -31,13 +33,33 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
   onSubmit,
   onCancel,
 }) => {
+  const [typePlace, setTypePlace] = useState([
+    {
+      id: "",
+      name: "",
+    },
+  ]);
+
+  useEffect(() => {
+    const getData = async () => {
+      apiPlaces
+        .getPlaceTypes()
+        .then((res) => {
+          const newData = res.data.map((item: any, index: any) => ({
+            id: item.id,
+            name: item.name,
+          }));
+
+          setTypePlace(newData);
+        })
+        .catch((e) => console.log(e));
+    };
+    getData();
+  }, []);
+
   const [form] = Form.useForm();
 
-  const [cities, setCities] = useState(cityData[provinceData[0] as CityName]);
-
-  const [secondCity, setSecondCity] = useState(
-    cityData[provinceData[0] as CityName][0]
-  );
+  const [valueSelector, setValueSelector] = useState("Chọn loại địa điểm");
 
   const [thumbnail, setThumbnail] = useState([]);
 
@@ -63,10 +85,11 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
     setUploading(true);
   };
 
-  const handleProvinceChange = (value: CityName) => {
-    setCities(cityData[value]);
-    setSecondCity(cityData[value][0]);
+  const handleTypeChange = (value: any) => {
+    setValueSelector(value);
   };
+
+  console.log(valueSelector);
 
   const [images, setImages] = React.useState([]);
   const maxNumber = 11;
@@ -85,8 +108,8 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
       open={open}
       title="Thêm loại địa điểm"
       width={1200}
-      okText="Create"
-      cancelText="Cancel"
+      okText="Tạo địa điểm"
+      cancelText="Huỷ bỏ"
       onCancel={onCancel}
       onOk={() => {
         form
@@ -221,12 +244,12 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
               ]}
             >
               <Select
-                defaultValue={provinceData[0]}
-                style={{ width: 120 }}
-                onChange={handleProvinceChange}
-                options={provinceData.map((province: any) => ({
-                  label: province,
-                  value: province,
+                defaultValue={valueSelector}
+                style={{ width: 160 }}
+                onChange={handleTypeChange}
+                options={typePlace.map((item: any) => ({
+                  label: item.name,
+                  value: item.id,
                 }))}
               />
             </Form.Item>
