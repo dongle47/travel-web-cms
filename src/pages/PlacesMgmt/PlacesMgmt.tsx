@@ -7,6 +7,7 @@ import ModalCreatePlace from "./ModalCreatePlace";
 import type { ColumnsType } from "antd/es/table";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import apiUpload from "../../apis/apiUpload";
 interface DataType {
   id: string;
   thumbnail: string;
@@ -112,20 +113,68 @@ const PlacesMgmt: React.FC = () => {
   }, []);
 
   const onSubmit = (values: any) => {
-    const param = {
-      code: values.code,
-      name: values.name,
+    // console.log(values);
+
+    var thumbnailURL: String = "";
+    var imgsURL: any[] = [""];
+
+    const getURL = async () => {
+      const paramThumbnail = {
+        file: values.thumbnail[0].file,
+        type: "thumbnail",
+      };
+      await apiUpload
+        .postUploadAvatar(paramThumbnail)
+        .then((res) => {
+          thumbnailURL = res.data.full_path;
+        })
+        .catch((e) => console.log(e));
+
+      const imgsFile = values.images.map((item: any) => item.file);
+
+      for (var item of imgsFile) {
+        await apiUpload
+          .postUploadAvatar({ file: item, type: "place" })
+          .then((res) => {
+            imgsURL.push(res.data.full_path);
+          })
+          .catch((e) => console.log(e));
+      }
+
+      // console.log(thumbnailURL);
+      // console.log(imgsURL);
+
+      const submitParam = {
+        address: values.address,
+        // img: [
+        //   {
+        //     name: "string",
+        //     url: "string",
+        //   },
+        // ],
+        img: imgsURL.slice(1).map((item: any) => ({
+          name: "place",
+          url: item,
+        })),
+        lat: Number(values.lat),
+        lng: Number(values.lng),
+        name: values.name,
+        place_type_id: values.placeType,
+        thumbnail: thumbnailURL,
+      };
+
+      // console.log(submitParam);
+
+      await apiPlaces
+        .postPlace(submitParam)
+        .then((res) => {
+          toast(res.message);
+        })
+        .catch((e) => console.log(e));
     };
 
-    apiPlaces
-      .postPlaceType(param)
-      .then((res) => {
-        toast.success(res.message);
-      })
-      .catch((e) => {
-        toast.error(e.message);
-      });
-
+    getURL();
+    // console.log("images ", imgsURL.slice(1));
     setOpenModal(false);
   };
 

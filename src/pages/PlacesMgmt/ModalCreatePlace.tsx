@@ -67,7 +67,7 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
 
   const onChangeThumbnail = (imageList: any, addUpdateIndex: any) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
+    // console.log(imageList, addUpdateIndex);
     setThumbnail(imageList);
   };
 
@@ -89,7 +89,7 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
     setValueSelector(value);
   };
 
-  console.log(valueSelector);
+  // console.log(valueSelector);
 
   const [images, setImages] = React.useState([]);
   const maxNumber = 11;
@@ -99,7 +99,7 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
     addUpdateIndex: number[] | undefined
   ) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
+    // console.log(imageList, addUpdateIndex);
     setImages(imageList as never[]);
   };
 
@@ -134,12 +134,12 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
             <Form.Item
               name="name"
               label="Tên địa điểm"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input the title of collection!",
-                },
-              ]}
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: "Please input the title of collection!",
+              //   },
+              // ]}
             >
               <Input />
             </Form.Item>
@@ -147,12 +147,12 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
             <Form.Item
               name="thumbnail"
               label="Thumbnail"
-              rules={[
-                {
-                  required: true,
-                  message: "Nhập cái này vào dùm cái",
-                },
-              ]}
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: "Nhập cái này vào dùm cái",
+              //   },
+              // ]}
             >
               <ImageUploading
                 value={thumbnail}
@@ -236,12 +236,12 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
             <Form.Item
               name="placeType"
               label="Loại địa điểm"
-              rules={[
-                {
-                  required: true,
-                  message: "Nhập cái này vào dùm cái",
-                },
-              ]}
+              // rules={[
+              //   {
+              //     required: true,
+              //     message: "Nhập cái này vào dùm cái",
+              //   },
+              // ]}
             >
               <Select
                 defaultValue={valueSelector}
@@ -259,7 +259,7 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
             <Form.Item
               name="address"
               label="Địa chỉ"
-              rules={[{ required: true, message: "Please input Intro" }]}
+              // rules={[{ required: true, message: "Please input Intro" }]}
             >
               <Input.TextArea showCount maxLength={100} />
             </Form.Item>
@@ -267,7 +267,7 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
             <Form.Item
               name="lat"
               label="Lat"
-              rules={[{ required: true, message: "Please input website!" }]}
+              // rules={[{ required: true, message: "Please input website!" }]}
             >
               <InputNumber<string>
                 style={{ width: 200 }}
@@ -283,7 +283,7 @@ const ModalCreatePlace: React.FC<ModalFormProps> = ({
             <Form.Item
               name="lng"
               label="Lng"
-              rules={[{ required: true, message: "Please input website!" }]}
+              // rules={[{ required: true, message: "Please input website!" }]}
             >
               <InputNumber<string>
                 style={{ width: 200 }}
