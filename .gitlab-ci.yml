@@ -1,0 +1,44 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - apk update
+    - apk add zip
+  script:
+    - docker build -t travel/travel-cms .
+    - docker save -o travel-cms-${CI_PIPELINE_ID}.tar travel/travel-cms
+    - zip travel-cms-${CI_PIPELINE_ID}.zip travel-cms-${CI_PIPELINE_ID}.tar
+  artifacts:
+      paths:
+        - travel-cms-${CI_PIPELINE_ID}.zip
+  only:
+    - main
+
+deploy-staging:
+  stage: deploy
+  before_script:
+    - "which ssh-agent || ( apk add openssh-client )"
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - chmod 700 ~/.ssh
+  script:
+    - scp -P $SSH_PORT travel-cms-${CI_PIPELINE_ID}.zip $SSH_USER@$SSH_SERVER_IP:/home/virtual-travel/travel-cms
+    - >-
+      ssh -p $SSH_PORT $SSH_USER@$SSH_SERVER_IP
+      "cd /home/virtual-travel/travel-cms
+      && unzip travel-cms-${CI_PIPELINE_ID}.zip
+      && cat travel-cms-${CI_PIPELINE_ID}.tar | docker load
+      && docker-compose up -d
+      && docker image prune -f
+      && rm travel-cms-${CI_PIPELINE_ID}.*
+      && exit"
+  only:
+    - main
