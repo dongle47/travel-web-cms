@@ -12,7 +12,7 @@ import { persistStore, persistReducer, FLUSH,
   REGISTER, } from 'redux-persist'
 
   const persistConfig = {
-    key: 'root',
+    key: 'travel-cms',
     version: 1,
     storage,
   }
@@ -28,7 +28,11 @@ const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(sagaMiddleware),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(sagaMiddleware),
 });
 
 sagaMiddleware.run(rootSaga);
@@ -41,3 +45,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+export let persistor = persistStore(store)
+

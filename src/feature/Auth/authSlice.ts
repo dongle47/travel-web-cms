@@ -18,7 +18,13 @@ const authSlice = createSlice({
     name:'auth',
     initialState,
     reducers: {
-
+        login(state,action){
+            state.user = {
+                username: "A",
+                password: "B"
+            }
+            return state
+        }
     }
 })
 

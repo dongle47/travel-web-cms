@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Menu, theme } from "antd";
 
 import PlacesMgmt from "../feature/PlacesMgmt/PlacesMgmt";
@@ -12,15 +12,27 @@ import {
   MenuUnfoldOutlined,
   UploadOutlined,
 } from "@ant-design/icons";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import PlaceTypes from "../feature/PlaceTypesMgmt/PlaceTypesMgmt";
 import TestUpload from "../feature/PlacesMgmt/TestUpload";
+import { useAppSelector } from "../app/hooks";
+import { selectUser } from "../feature/Auth/authSlice";
 
 const { Header, Sider, Content } = Layout;
 
 const MasterLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+
+  const navigate = useNavigate();
+
+  const user = useAppSelector(selectUser);
+
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate("/auth");
+  //   }
+  // }, []);
 
   const {
     token: { colorBgContainer },
