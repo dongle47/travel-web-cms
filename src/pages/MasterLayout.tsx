@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Layout, Menu, theme } from "antd";
 
-import PlacesMgmt from "./PlacesMgmt/PlacesMgmt";
-import UpdatePlace from "./PlacesMgmt/UpdatePlace";
+import PlacesMgmt from "../feature/PlacesMgmt/PlacesMgmt";
+import UpdatePlace from "../feature/PlacesMgmt/UpdatePlace";
 
 import {
   AppstoreAddOutlined,
@@ -14,8 +14,8 @@ import {
 } from "@ant-design/icons";
 import { Link, Route, Routes } from "react-router-dom";
 import Dashboard from "./Dashboard";
-import PlaceTypes from "./PlaceTypesMgmt/PlaceTypesMgmt";
-import TestUpload from "./PlacesMgmt/TestUpload";
+import PlaceTypes from "../feature/PlaceTypesMgmt/PlaceTypesMgmt";
+import TestUpload from "../feature/PlacesMgmt/TestUpload";
 
 const { Header, Sider, Content } = Layout;
 
