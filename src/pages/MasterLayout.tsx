@@ -21,6 +21,7 @@ const { Header, Sider, Content } = Layout;
 
 const MasterLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();

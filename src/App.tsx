@@ -12,6 +12,7 @@ function App() {
     <>
       <BrowserRouter>
         <AppRoutes />
+
         <ToastContainer
           autoClose={1200}
           hideProgressBar={false}

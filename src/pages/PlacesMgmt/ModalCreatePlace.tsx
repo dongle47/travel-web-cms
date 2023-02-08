@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
-import apiPlaces from "../../apis/apiPlaces";
-import apiUpload from "../../apis/apiUpload";
+import apiPlaces from "../../apis/placesApi";
+import apiUpload from "../../apis/uploadApi";
 import { ModalFormProps } from "../../models/ModalFormProps";
 import {
   Button,

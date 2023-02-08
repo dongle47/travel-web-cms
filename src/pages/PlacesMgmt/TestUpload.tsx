@@ -2,7 +2,7 @@ import { Button } from "antd";
 import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 
-import apiUpload from "../../apis/apiUpload";
+import apiUpload from "../../apis/uploadApi";
 import { toast } from "react-toastify";
 
 const TestUpload: React.FC = () => {

@@ -6,7 +6,7 @@ import { EditableCell } from "../../components";
 import ModalCreate from "./ModalCreate";
 import { PlaceType } from "../../models/places";
 
-import apiPlaces from "../../apis/apiPlaces";
+import apiPlaces from "../../apis/placesApi";
 
 const PlaceTypesMgmt: React.FC = () => {
   const [form] = Form.useForm();

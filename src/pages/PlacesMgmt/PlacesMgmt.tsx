@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, Button, Space, Table, Typography } from "antd";
-import apiPlaces from "../../apis/apiPlaces";
+import apiPlaces from "../../apis/placesApi";
 
 import ModalCreatePlace from "./ModalCreatePlace";
 
 import type { ColumnsType } from "antd/es/table";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import apiUpload from "../../apis/apiUpload";
+import apiUpload from "../../apis/uploadApi";
 interface DataType {
   id: string;
   thumbnail: string;
